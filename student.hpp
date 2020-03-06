@@ -1,7 +1,10 @@
-class Student{
-	private:
-		std::string	dni;
-		std::string name;
+#ifndef STUDENT_HPP
+#define STUDENT_HPP
+
+class Student{ 
+	private: 
+		std::string	dni; 
+		std::string name; 
 		bool isEnrolled;
 	
 	public:
@@ -13,7 +16,7 @@ class Student{
 		//Getters
 		std::string getDNI(void);
 		std::string getName(void);
-		std::string getEntrollment(void);
+		bool getEntrollment(void);
 };
 
 //Setters
@@ -38,7 +41,8 @@ std::string Student::getName(void){
 	return name;
 }
 
-std::string Student::getEntrollment(void){
+bool Student::getEntrollment(void){
 	return isEnrolled;
 }
 
+#endif

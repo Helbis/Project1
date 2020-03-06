@@ -1,16 +1,18 @@
+//Standard libraries
 #include <iostream>
-#include "./menu.hpp"
-#include "./university.hpp"
+#include <vector>
+
+//My files
 #include "./student.hpp"
-#include "./title.hpp"
+#include "./degree.hpp"
+#include "./university.hpp"
+#include "./menu.hpp"
 
 
 int main(int argc, char *argv[]){
-	std::string str = "";
-	str.insert(0, 20, '='); 
-
-	std::cout << str << '\n';
-
+	
+	Menu menu = Menu();
+	menu.start();
 
 	return 0;
 }
