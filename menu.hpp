@@ -6,6 +6,8 @@
 #define QUIT 'q'
 #define WAIT 'w'
 
+#define MENU "========Menu========\n1 Add or Modify\n2 Remove\n3 Show\n\t[Q]uit\n"
+
 
 class Menu{
 	private:
@@ -22,70 +24,93 @@ class Menu{
 
 		
 		//OPTION 1	
-		void addStudent(void);
+		void addModify(void);
 		
 		//OPTION 2
-		void modify(void);		
-
-		//OPTION 3
 		void remove(void);		
 
-		//OPTION 4
+		//OPTION 3
 		void show(void);		
 
-		//OPTION 5
+		//OPTION 4
 		void quit(void);
 
 };
 
 
 Menu::Menu(void){
-	action = WAIT;
+	action = QUIT;
 }
 
 
 void Menu::print(void){
-	std::cout << "Menu\n";
+	std::cout << MENU << '\n';	
 }
 
 
 void Menu::getInput(void){
-	scanf("%c", result);
+	//do{
+	//	std::cout << action;
+		std::cout << "\nOption : ";
+		std::cin >> action;
+	//	std::cout << '\n' << sizeof(action) << action;
+	//	printf("\nsize : %li\naction : %c", sizeof(action), action);
+	//}while(action==WAIT);
 }
 
 
 void Menu::start(void){
 
-	do{
-		Menu::print();
-		Menu::getInput();
+	action = WAIT;
 	
-	}while(action!=QUIT);
+	while(action!=QUIT){
+		Menu::print();
+		//std::cin >> action;
+		Menu::getInput();
+		
+		switch(action){
+			case '1':{
+				Menu::addModify();
+				break;	
+			}
+			case '2':{
+				Menu::remove();
+				break;	
+			}
+			case '3':{
+				Menu::show();
+				break;	
+			}
+			case QUIT:{
+				Menu::quit();
+				break;
+			}
+			default:{
+				std::cout << "Input unrecognized, try again\n";
+			}	
+		}
+	}
 }
 
 		
 //OPTION 1	
-void Menu::addStudent(void){
-
+void Menu::addModify(void){
+	std::cout << "Add or Modify chosen\n\n";
 }
 		
 //OPTION 2
-void Menu::modify(void){
-}		
+void Menu::remove(void){
+	std::cout << "Remove chosen\n\n";
+}	
 
 //OPTION 3
-void Menu::remove(void){
-
+void Menu::show(void){
+	std::cout << "Show students chosen\n\n";
 }	
 
 //OPTION 4
-void Menu::show(void){
-
-}	
-
-//OPTION 5
 void Menu::quit(void){
-
+	std::cout << "\n\tBye ~,~\n";
 }
 
 
