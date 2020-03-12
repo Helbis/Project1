@@ -3,8 +3,16 @@
 
 
 //Macros for readablity
-#define QUIT 'q'
-#define WAIT 'w'
+//#define QUIT 'q'
+//#define WAIT 'w'
+enum MENU_OPTIONS : char {
+	ADD_MODIFY='1',
+	REMOVE='2',
+	SHOW='3',
+
+	QUIT='q',
+	WAIT='w'
+};
 
 #define MENU "========Menu========\n1 Add or Modify\n2 Remove\n3 Show\n\t[Q]uit\n"
 
@@ -69,15 +77,15 @@ void Menu::start(void){
 		Menu::getInput();
 		
 		switch(action){
-			case '1':{
+			case ADD_MODIFY:{
 				Menu::addModify();
 				break;	
 			}
-			case '2':{
+			case REMOVE:{
 				Menu::remove();
 				break;	
 			}
-			case '3':{
+			case SHOW:{
 				Menu::show();
 				break;	
 			}
@@ -95,7 +103,11 @@ void Menu::start(void){
 		
 //OPTION 1	
 void Menu::addModify(void){
+	std::string temp_name, temp_DNI;
+
 	std::cout << "Add or Modify chosen\n\n";
+	std::cout << "Student's name : "; std::cin >> temp_name;
+	std::cout << "\nStudent's DNI : "; std::cin >> temp_DNI;
 }
 		
 //OPTION 2
