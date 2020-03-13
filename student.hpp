@@ -8,6 +8,8 @@ class Student{
 		bool isEnrolled;
 	
 	public:
+		Student(std::string temp_name, std::string temp_DNI);
+
 		//Setters
 		void setDNI(std::string temp);
 		void setName(std::string temp);
@@ -23,7 +25,7 @@ class Student{
 
 Student::Student(std::string temp_name, std::string temp_DNI){
 	name = temp_name;
-	DNI = temp_DNI;
+	dni = temp_DNI;
 }
 
 
@@ -54,10 +56,8 @@ bool Student::getEntrollment(void){
 }
 
 
-
-bool operator == (Student other){
-	return this->DNI.compare(other->DNI) ? true : false;
-}
+bool Student::operator == (Student other){
+	return this->getDNI().compare(other.getDNI()) ? true : false; }
 
 
 #endif
