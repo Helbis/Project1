@@ -17,6 +17,7 @@ class University{
 		Student getStudent(int i, int j);
 		int getTotalNumStudents(void);
 		void removeEmptyDegrees(void);
+		void modifyStudent(Student temp);
 };
 
 
@@ -83,6 +84,18 @@ void University::removeEmptyDegrees(void){
 	if(!(temp.size() == degrees.size())){
 		degrees.swap(temp);
 		temp.clear();
+	}
+}
+
+
+void University::modifyStudent(Student temp){
+	for(int i=0; i<getSize(); i++){
+		for(int j=0; j<degrees[i].getSize(); j++){
+			//Look everywhere and change each occurence of this student
+			if(temp == getStudent(i, j)){
+				getStudent(i, j).setName(temp.getName());
+			}
+		}
 	}
 }
 
