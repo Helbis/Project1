@@ -3,8 +3,6 @@
 
 
 //Macros for readablity
-//#define QUIT 'q'
-//#define WAIT 'w'
 enum MENU_OPTIONS : char {
 	ADD_MODIFY='1',
 	REMOVE='2',
@@ -20,10 +18,13 @@ enum MENU_OPTIONS : char {
 class Menu{
 	private:
 		char action; //Menu action for any input such as 'q' for quit
+		University university;		
 			
 	public:
 		Menu(void);
-		
+	
+		Student find(std::string temp_name, std::string temp_DNI, std::string temp_degree);
+	
 		void print(void);
 		void getInput(void);	
 	
@@ -51,8 +52,21 @@ Menu::Menu(void){
 }
 
 
+Student Menu::find(std::string temp_name, std::string temp_DNI, std::string temp_degree){
+	//for(int i=0; i<){
+
+	//}
+}
+
+
 void Menu::print(void){
-	std::cout << MENU << '\n';	
+//	std::cout << MENU << '\n';
+
+	std::cout << "========Menu========\n";
+	std::cout << (char)ADD_MODIFY << " Add or Modify\n";
+	std::cout << (char)REMOVE << " Remove\n";
+	std::cout << (char)SHOW << " Show\n";
+	std::cout << (char)QUIT << " [Q]uit\n";
 }
 
 
@@ -103,26 +117,46 @@ void Menu::start(void){
 		
 //OPTION 1	
 void Menu::addModify(void){
-	std::string temp_name, temp_DNI;
+	std::string temp_name, temp_DNI, temp_degree;
 
 	std::cout << "Add or Modify chosen\n\n";
-	std::cout << "Student's name : "; std::cin >> temp_name;
-	std::cout << "\nStudent's DNI : "; std::cin >> temp_DNI;
+	
+	std::cout << "Student's name : "; 
+		std::cin >> temp_name;
+	std::cout << "\nStudent's DNI : "; 
+		std::cin >> temp_DNI;
+	std::cout << "\nDegree : "; 
+		std::cin >> temp_degree;
+
+	Student temp_Student = Menu::find(temp_name, temp_DNI, temp_degree);
 }
 		
 //OPTION 2
 void Menu::remove(void){
 	std::cout << "Remove chosen\n\n";
+
+	university.removeEmptyDegrees();	
 }	
 
 //OPTION 3
 void Menu::show(void){
 	std::cout << "Show students chosen\n\n";
+
+	std::cout << "University (" << university.getTotalNumStudents() << ")\n";
+	for(int i=0; i<university.getSize(); i++){
+		//Print degree
+		std::cout << "\n\t" << university.getDegree(i).getName() << "\t( " << university.getDegree(i).getSize() << ')';
+		
+		for(int j=0; j<university.getDegree(i).getSize(); j++){
+			//Print all students in a degree
+			std::cout << "\n\t\t" << university.getStudent(i, j).getName() << "\t" << university.getStudent(i, j).getDNI();
+		}
+	}		
 }	
 
 //OPTION 4
 void Menu::quit(void){
-	std::cout << "\n\tBye ~,~\n";
+	std::cout << "\nBye\n";
 }
 
 
