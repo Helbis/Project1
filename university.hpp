@@ -3,33 +3,45 @@
 
 class University{
 	private:
-		const int N;
+		//const int N;
 		std::vector<Degree> degrees;	
 
 	public:
-		University(int temp);
+		University(void);
 
 		//Getters
 		int getSize(void);
 		std::vector<Degree> getDegrees(void);
-		
+		Degree getDegree(int i);	
+	
+		Student getStudent(int i, int j);
 		int getTotalNumStudents(void);
 		void removeEmptyDegrees(void);
 };
 
 
-University::University(int temp) : N(temp){
-	degrees.reserve(N);
+University::University(void){ 
+
 }
 
 
 //Getters
 int University::getSize(void){
-	return N;
+	return degrees.size();
 }
 
 std::vector<Degree> University::getDegrees(void){
 	return degrees;
+}
+
+
+Degree University::getDegree(int i){
+	return degrees[i];
+}	
+
+
+Student University::getStudent(int i, int j){
+	return (degrees[i])[j];
 }
 
 
