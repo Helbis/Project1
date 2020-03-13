@@ -4,7 +4,7 @@
 
 enum MESSAGES : int{
 	NOT_FOUND = -1
-}
+};
 
 
 class Degree{
@@ -27,7 +27,7 @@ class Degree{
 		void addStudent(std::string temp_name, std::string temp_DNI);
 		int findStudent(std::string temp_DNI);
 
-		Degree operator [](int i);
+		Student operator [](int i);
 };
 
 
@@ -65,7 +65,7 @@ void Degree::addStudent(std::string temp_name, std::string temp_DNI){
 
 
 int Degree::findStudent(std::string temp_DNI){
-	for(i=0; i<getSize(); i++){
+	for(int i=0; i<getSize(); i++){
 		if(students[i].getDNI() == temp_DNI){
 			//Found the student in given degree
 			return i;
@@ -75,8 +75,8 @@ int Degree::findStudent(std::string temp_DNI){
 	return NOT_FOUND;
 }
 
-Degree operator [](int i){
-	return students[i]
+Student Degree::operator [](int i){
+	return students[i];
 }
 
 
