@@ -14,7 +14,7 @@ class University{
 		std::vector<Degree> getDegrees(void);
 		
 		int getTotalNumStudents(void);
-
+		void removeEmptyDegrees(void);
 };
 
 
@@ -55,6 +55,23 @@ int University::getTotalNumStudents(void){
 	}
 	
 	return total - sub_end;
+}
+
+
+
+void University::removeEmptyDegrees(void){
+	std::vector<Degree> temp;
+	
+	for(int i=0; i<getSize(); i++){
+		if(degrees[i].getSize() != 0){
+			temp.push_back(degrees[i]);
+		}
+	}
+	
+	if(!(temp.size() == degrees.size())){
+		degrees.swap(temp);
+		temp.clear();
+	}
 }
 
 
