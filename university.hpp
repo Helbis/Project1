@@ -1,6 +1,7 @@
 #ifndef UNIVERSITY_HPP
 #define UNIVERSITY_HPP
 
+
 class University{
 	private:
 		//const int N;
@@ -18,6 +19,8 @@ class University{
 		int getTotalNumStudents(void);
 		void removeEmptyDegrees(void);
 		void modifyStudent(Student temp);
+		void addDegree(std::string temp);
+		void addStudent(Student stu, Degree deg);
 };
 
 
@@ -95,6 +98,21 @@ void University::modifyStudent(Student temp){
 			if(temp == getStudent(i, j)){
 				getStudent(i, j).setName(temp.getName());
 			}
+		}
+	}
+}
+
+
+void University::addDegree(std::string temp){
+	Degree deg(temp);
+	degrees.push_back(deg);
+}
+
+
+void University::addStudent(Student stu, Degree deg){
+	for(int i=0; i<getSize(); i++){
+		if(deg == degrees[i]){
+			degrees[i].addStudent(stu);
 		}
 	}
 }

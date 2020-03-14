@@ -10,11 +10,11 @@ enum MESSAGES : int{
 class Degree{
 	private:
 		std::string name;
-		const int N;
+//		const int N;
 		std::vector<Student> students;
 
 	public:
-		Degree(int temp_size);
+		Degree(std::string temp);
 		
 		//Getters
 		std::string getName(void);
@@ -25,14 +25,16 @@ class Degree{
 		void setName(std::string temp);
 
 		void addStudent(std::string temp_name, std::string temp_DNI);
+		void addStudent(Student stu);
 		int findStudent(std::string temp_DNI);
 
 		Student operator [](int i);
+		bool operator == (Degree other);
 };
 
 
-Degree::Degree(int temp_size) : N(temp_size){
-	students.reserve(N);
+Degree::Degree(std::string temp){ 
+	name = temp;
 }
 
 //Getters
@@ -57,11 +59,14 @@ void Degree::setName(std::string temp){
 }
 
 
-
 void Degree::addStudent(std::string temp_name, std::string temp_DNI){
 	students.push_back(Student(temp_name, temp_DNI));
 }
 
+
+void Degree::addStudent(Student stu){
+	students.push_back(stu);
+}
 
 
 int Degree::findStudent(std::string temp_DNI){
@@ -75,8 +80,14 @@ int Degree::findStudent(std::string temp_DNI){
 	return NOT_FOUND;
 }
 
+
 Student Degree::operator [](int i){
 	return students[i];
+}
+
+
+bool Degree::operator == (Degree other){
+	return (this->name.compare(other.name) == 0) ? true : false;
 }
 
 

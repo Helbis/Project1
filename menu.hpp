@@ -23,7 +23,7 @@ class Menu{
 	public:
 		Menu(void);
 	
-		Student find(std::string temp_name, std::string temp_DNI, std::string temp_degree);
+		bool find(Student temp);
 	
 		void print(void);
 		void getInput(void);	
@@ -52,16 +52,20 @@ Menu::Menu(void){
 }
 
 
-Student Menu::find(std::string temp_name, std::string temp_DNI, std::string temp_degree){
-	//for(int i=0; i<){
-
-	//}
+bool Menu::find(Student temp){
+	for(int i=0; i<university.getSize(); i++){
+		for(int j=0; j<university.getDegree(i).getSize(); j++){
+			if(temp == university.getStudent(i, j)){
+				return true;
+			}
+		}
+	}
+	
+	return false;
 }
 
 
 void Menu::print(void){
-//	std::cout << MENU << '\n';
-
 	std::cout << "========Menu========\n";
 	std::cout << (char)ADD_MODIFY << " Add or Modify\n";
 	std::cout << (char)REMOVE << " Remove\n";
@@ -71,13 +75,8 @@ void Menu::print(void){
 
 
 void Menu::getInput(void){
-	//do{
-	//	std::cout << action;
-		std::cout << "\nOption : ";
-		std::cin >> action;
-	//	std::cout << '\n' << sizeof(action) << action;
-	//	printf("\nsize : %li\naction : %c", sizeof(action), action);
-	//}while(action==WAIT);
+	std::cout << "\nOption : ";
+	std::cin >> action;
 }
 
 
@@ -118,17 +117,34 @@ void Menu::start(void){
 //OPTION 1	
 void Menu::addModify(void){
 	std::string temp_name, temp_DNI, temp_degree;
+	char ans;
 
 	std::cout << "Add or Modify chosen\n\n";
 	
 	std::cout << "Student's name : "; 
 		std::cin >> temp_name;
-	std::cout << "\nStudent's DNI : "; 
+	std::cout << "Student's DNI : "; 
 		std::cin >> temp_DNI;
-	std::cout << "\nDegree : "; 
+	std::cout << "Degree : "; 
 		std::cin >> temp_degree;
+	
+	Student temp(temp_name, temp_DNI);
+	bool found = find(temp);
 
-	Student temp_Student = Menu::find(temp_name, temp_DNI, temp_degree);
+	if(!found){
+		university.addDegree(temp_degree);
+		university.addStudent(temp, temp_degree);
+	}else{
+		std::cout << "\nDo you want to modify a student? (y/N):\t";
+		std::cin >> ans;
+		
+		if(ans == 'Y' or ans == 'y'){
+			//Modify given student
+			university.modifyStudent(temp);
+		}else{
+			//Don't modify just exit	
+		}
+	}
 }
 		
 //OPTION 2
