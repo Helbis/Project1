@@ -1,0 +1,5 @@
+DTCS
+SKolo 1
+SPOLO 2
+DCS
+SDOlo 13

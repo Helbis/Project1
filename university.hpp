@@ -2,6 +2,9 @@
 #define UNIVERSITY_HPP
 
 
+#define FNAME "./uniDB.txt"
+
+
 class University{
 	private:
 		//const int N;
@@ -24,6 +27,10 @@ class University{
 		void addDegree(Degree temp);
 		void addStudent(Student stu, Degree deg);
 		void removeStudent(Student stu, std::string deg);
+
+		void removeAll(void);
+		void load(void);
+		void save(void);
 };
 
 
@@ -59,6 +66,7 @@ std::vector<std::vector<int>> University::findStudentAll(Student stu){
 
 
 int University::getTotalNumStudents(void){
+	/*
 	int total = 0, 
 		sub_end = 0;	
 
@@ -80,6 +88,15 @@ int University::getTotalNumStudents(void){
 	}
 	
 	return total - sub_end;
+	*/
+
+	int total = 0;
+	
+	for(int i=0; i<getSize(); i++){
+		total += degrees[i].getSize();
+	}
+	
+	return total;
 }
 
 
@@ -127,7 +144,7 @@ void University::addStudent(Student stu, Degree deg){
 	addDegree(deg);
 	degrees[getSize()-1].addStudent(stu);
 }
-
+	
 
 void University::removeStudent(Student stu, std::string temp){
 	Degree deg(temp);
@@ -138,5 +155,99 @@ void University::removeStudent(Student stu, std::string temp){
 		}
 	}	
 }
+
+
+void University::removeAll(void){
+	for(int i=getSize()-1; i>=0; i--){
+		degrees[i].clear();
+	}
+
+	//while(degrees.size() != 0){
+	//	degrees.back().clear();
+	//}
+
+	degrees.clear();
+}
+
+
+void University::load(void){
+	std::ifstream fs;
+	fs.open(FNAME);
+	std::string line;
+
+	removeAll();
+	/*
+		DDegree(name)\n
+		SStudent(name, dni)\n
+		.
+		.
+		.
+		Other Degree...	
+	*/
+	
+	if(fs.is_open() and !fs.eof()){
+    	while(getline(fs, line)){
+
+			std::cout << "line[last] :\t" << line.back() << '\n';
+			switch(line[0]){
+				case 'D':{
+					//New degree
+					//line.pop_back();
+					line.erase(0, 1);
+					degrees.push_back(Degree(line));
+					break;
+				}
+				case 'S':{
+					//Student in given degree
+					//line.pop_back();
+					line.erase(0, 1);
+					std::istringstream ss(line);
+					do{
+						//Read word by word
+						std::string temp_name, temp_DNI;
+						ss >> temp_name;
+						ss >> temp_DNI;
+	
+						degrees.back().addStudent(temp_name, temp_DNI);	
+					}while(ss);	
+					
+					break;
+				}
+				default:{
+					std::cout << "File is corrupted";
+					std::cout << "At line\n\t" << line;
+					break;
+				}
+			}
+		}
+  	}else{
+		std::cout << "Unable to open file";
+	}
+	
+	fs.close();
+}
+
+
+void University::save(void){
+	std::ofstream fs(FNAME);
+		
+	if (fs.is_open()){
+		//Writing to the file
+			for(int i=0; i<getSize(); i++){	
+				//Write Degree
+				fs << "D" + degrees[i].getName() + "\n";	
+
+				for(int j=0; j<degrees[i].getSize(); j++){
+					//Write students from degree
+					fs << "S" + degrees[i][j].getName() + " " + degrees[i][j].getDNI() + "\n";	
+				}
+			}
+	}else{
+		std::cout << "Unable to open file";
+	}
+
+	fs.close();
+}
+
 
 #endif

@@ -1,6 +1,8 @@
 //Standard libraries
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <sstream>
 
 //My files
 #include "./student.hpp"

@@ -35,6 +35,8 @@ class Degree{
 		
 		Student &operator [](int i);
 		bool operator == (Degree other);
+
+		void clear(void);
 };
 
 
@@ -120,5 +122,9 @@ bool Degree::operator == (Degree other){
 	return (this->name.compare(other.name) == 0) ? true : false;
 }
 
+
+void Degree::clear(void){
+	students.clear();
+}
 
 #endif

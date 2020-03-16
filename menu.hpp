@@ -8,6 +8,7 @@ enum MENU_OPTIONS : char {
 	REMOVE='2',
 	SHOW='3',
 	LOAD='4',	
+	SAVE='5',
 
 	QUIT='q',
 	WAIT='w'
@@ -44,6 +45,9 @@ class Menu{
 		void load(void);		
 
 		//OPTION 5
+		void save(void);		
+
+		//OPTION 6
 		void quit(void);
 
 };
@@ -73,6 +77,7 @@ void Menu::print(void){
 	std::cout << (char)REMOVE << " Remove\n";
 	std::cout << (char)SHOW << " Show\n";	
 	std::cout << (char)LOAD << " Load\n";
+	std::cout << (char)SAVE << " Save\n";
 	std::cout << (char)QUIT << " [Q]uit\n\n";
 }
 
@@ -107,6 +112,10 @@ void Menu::start(void){
 			}
 			case LOAD:{
 				load();
+				break;
+			}
+			case SAVE:{
+				save();
 				break;
 			}
 			case QUIT:{
@@ -199,10 +208,18 @@ void Menu::show(void){
 void Menu::load(void){
 	//Load from file
 	std::cout << "Loading from file\n";
+	university.load();
 }
 
 
 //OPTION 5
+void Menu::save(void){
+	//Save to file
+	std::cout << "Saving to file\n";
+	university.save();
+}
+
+//OPTION 6
 void Menu::quit(void){
 	std::cout << "\nBye\n";
 }
