@@ -12,14 +12,15 @@ class University{
 
 		//Getters
 		int getSize(void);
-		std::vector<Degree> getDegrees(void);
-		Degree getDegree(int i);	
+		std::vector<Degree> &getDegrees(void);
+		Degree &getDegree(int i);	
 	
-		Student getStudent(int i, int j);
+		Student &getStudent(int i, int j);
 		int getTotalNumStudents(void);
 		void removeEmptyDegrees(void);
 		void modifyStudent(Student temp);
 		void addDegree(std::string temp);
+		void addDegree(Degree temp);
 		void addStudent(Student stu, Degree deg);
 };
 
@@ -34,18 +35,18 @@ int University::getSize(void){
 	return degrees.size();
 }
 
-std::vector<Degree> University::getDegrees(void){
+std::vector<Degree> &University::getDegrees(void){
 	return degrees;
 }
 
 
-Degree University::getDegree(int i){
+Degree &University::getDegree(int i){
 	return degrees[i];
 }	
 
 
-Student University::getStudent(int i, int j){
-	return (degrees[i])[j];
+Student &University::getStudent(int i, int j){
+	return (degrees[i][j]);
 }
 
 
@@ -92,11 +93,23 @@ void University::removeEmptyDegrees(void){
 
 
 void University::modifyStudent(Student temp){
+	std::cout << "Uni size " << getSize() << '\n';	
+
 	for(int i=0; i<getSize(); i++){
 		for(int j=0; j<degrees[i].getSize(); j++){
+			std::cout << "Degree size " << degrees[i].getSize();
 			//Look everywhere and change each occurence of this student
 			if(temp == getStudent(i, j)){
+				std::cout << "Before :\n";
+				std::cout << getStudent(i, j).getName() << '\n';
+				std::cout << temp.getName() << '\n';
+
 				getStudent(i, j).setName(temp.getName());
+				std::cout << "After :\n";
+				std::cout << getStudent(i, j).getName() << '\n';
+				std::cout << temp.getName() << "\n\n";
+
+
 			}
 		}
 	}
@@ -109,12 +122,21 @@ void University::addDegree(std::string temp){
 }
 
 
+void University::addDegree(Degree temp){
+	degrees.push_back(temp);
+}
+
+
 void University::addStudent(Student stu, Degree deg){
 	for(int i=0; i<getSize(); i++){
 		if(deg == degrees[i]){
 			degrees[i].addStudent(stu);
+			return;
 		}
 	}
+
+	addDegree(deg);
+	degrees[getSize()-1].addStudent(stu);
 }
 
 

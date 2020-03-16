@@ -17,9 +17,9 @@ class Degree{
 		Degree(std::string temp);
 		
 		//Getters
-		std::string getName(void);
+		std::string &getName(void);
 		int getSize(void);
-		std::vector<Student> getStudents(void);
+		std::vector<Student> &getStudents(void);
 		
 		//Setters
 		void setName(std::string temp);
@@ -28,7 +28,7 @@ class Degree{
 		void addStudent(Student stu);
 		int findStudent(std::string temp_DNI);
 
-		Student operator [](int i);
+		Student &operator [](int i);
 		bool operator == (Degree other);
 };
 
@@ -38,7 +38,7 @@ Degree::Degree(std::string temp){
 }
 
 //Getters
-std::string Degree::getName(void){
+std::string &Degree::getName(void){
 	return name;
 }
 
@@ -48,7 +48,7 @@ int Degree::getSize(void){
 }
 
 
-std::vector<Student> Degree::getStudents(void){
+std::vector<Student> &Degree::getStudents(void){
 	return students;
 }
 		
@@ -81,7 +81,7 @@ int Degree::findStudent(std::string temp_DNI){
 }
 
 
-Student Degree::operator [](int i){
+Student &Degree::operator [](int i){
 	return students[i];
 }
 

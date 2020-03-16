@@ -12,8 +12,6 @@ enum MENU_OPTIONS : char {
 	WAIT='w'
 };
 
-#define MENU "========Menu========\n1 Add or Modify\n2 Remove\n3 Show\n\t[Q]uit\n"
-
 
 class Menu{
 	private:
@@ -66,11 +64,11 @@ bool Menu::find(Student temp){
 
 
 void Menu::print(void){
-	std::cout << "========Menu========\n";
+	std::cout << "\n\n========Menu========\n";
 	std::cout << (char)ADD_MODIFY << " Add or Modify\n";
 	std::cout << (char)REMOVE << " Remove\n";
 	std::cout << (char)SHOW << " Show\n";
-	std::cout << (char)QUIT << " [Q]uit\n";
+	std::cout << (char)QUIT << " [Q]uit\n\n";
 }
 
 
@@ -132,7 +130,7 @@ void Menu::addModify(void){
 	bool found = find(temp);
 
 	if(!found){
-		university.addDegree(temp_degree);
+		//university.addDegree(temp_degree);
 		university.addStudent(temp, temp_degree);
 	}else{
 		std::cout << "\nDo you want to modify a student? (y/N):\t";
