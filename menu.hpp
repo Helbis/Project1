@@ -7,6 +7,7 @@ enum MENU_OPTIONS : char {
 	ADD_MODIFY='1',
 	REMOVE='2',
 	SHOW='3',
+	LOAD='4',	
 
 	QUIT='q',
 	WAIT='w'
@@ -40,6 +41,9 @@ class Menu{
 		void show(void);		
 
 		//OPTION 4
+		void load(void);		
+
+		//OPTION 5
 		void quit(void);
 
 };
@@ -67,7 +71,8 @@ void Menu::print(void){
 	std::cout << "\n\n========Menu========\n";
 	std::cout << (char)ADD_MODIFY << " Add or Modify\n";
 	std::cout << (char)REMOVE << " Remove\n";
-	std::cout << (char)SHOW << " Show\n";
+	std::cout << (char)SHOW << " Show\n";	
+	std::cout << (char)LOAD << " Load\n";
 	std::cout << (char)QUIT << " [Q]uit\n\n";
 }
 
@@ -83,25 +88,29 @@ void Menu::start(void){
 	action = WAIT;
 	
 	while(action!=QUIT){
-		Menu::print();
+		print();
 		//std::cin >> action;
-		Menu::getInput();
+		getInput();
 		
 		switch(action){
 			case ADD_MODIFY:{
-				Menu::addModify();
+				addModify();
 				break;	
 			}
 			case REMOVE:{
-				Menu::remove();
+				remove();
 				break;	
 			}
 			case SHOW:{
-				Menu::show();
+				show();
 				break;	
 			}
+			case LOAD:{
+				load();
+				break;
+			}
 			case QUIT:{
-				Menu::quit();
+				quit();
 				break;
 			}
 			default:{
@@ -147,9 +156,27 @@ void Menu::addModify(void){
 		
 //OPTION 2
 void Menu::remove(void){
+	std::string temp_name, temp_DNI, temp_degree;
+	char ans;
 	std::cout << "Remove chosen\n\n";
 
-	university.removeEmptyDegrees();	
+	university.removeEmptyDegrees();
+
+	//Remove students
+	std::cout << "Do you want to remove student? (y/N):\t";
+		std::cin >> ans;
+	
+	if(ans == 'y' or ans == 'Y'){
+		std::cout << "Student's name : "; 
+			std::cin >> temp_name;
+		std::cout << "Student's DNI : "; 
+			std::cin >> temp_DNI;
+		std::cout << "Degree : "; 
+			std::cin >> temp_degree;
+
+		Student stu(temp_name, temp_DNI);
+		university.removeStudent(stu, temp_degree);
+	}
 }	
 
 //OPTION 3
@@ -169,6 +196,13 @@ void Menu::show(void){
 }	
 
 //OPTION 4
+void Menu::load(void){
+	//Load from file
+	std::cout << "Loading from file\n";
+}
+
+
+//OPTION 5
 void Menu::quit(void){
 	std::cout << "\nBye\n";
 }

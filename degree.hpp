@@ -26,8 +26,13 @@ class Degree{
 
 		void addStudent(std::string temp_name, std::string temp_DNI);
 		void addStudent(Student stu);
-		int findStudent(std::string temp_DNI);
+		std::vector<int> findStudent(Student stu);
+	
+		void remove(int j);
+		void removeStudent(Student stu);
 
+		bool empty(void);
+		
 		Student &operator [](int i);
 		bool operator == (Degree other);
 };
@@ -69,15 +74,40 @@ void Degree::addStudent(Student stu){
 }
 
 
-int Degree::findStudent(std::string temp_DNI){
+std::vector<int> Degree::findStudent(Student stu){
+	std::vector<int> result;
+
 	for(int i=0; i<getSize(); i++){
-		if(students[i].getDNI() == temp_DNI){
+		if(students[i] == stu){
 			//Found the student in given degree
-			return i;
+			result.push_back(i);	
 		}
 	}
 	
-	return NOT_FOUND;
+	if(result.size() == 0){
+		result.push_back(NOT_FOUND);
+	}
+	
+	return result;
+}
+
+
+void Degree::remove(int j){
+	students.erase(students.begin() + j);
+}
+
+
+void Degree::removeStudent(Student stu){
+	for(int i=0; i<getSize(); i++){
+		if(stu == students[i]){
+			remove(i);
+		}
+	}
+}
+
+
+bool Degree::empty(void){
+	return students.empty();
 }
 
 

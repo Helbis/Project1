@@ -8,7 +8,7 @@ class University{
 		std::vector<Degree> degrees;	
 
 	public:
-		University(void);
+		University(void){}
 
 		//Getters
 		int getSize(void);
@@ -16,18 +16,15 @@ class University{
 		Degree &getDegree(int i);	
 	
 		Student &getStudent(int i, int j);
+		std::vector<std::vector<int>> findStudentAll(Student stu);
 		int getTotalNumStudents(void);
 		void removeEmptyDegrees(void);
 		void modifyStudent(Student temp);
 		void addDegree(std::string temp);
 		void addDegree(Degree temp);
 		void addStudent(Student stu, Degree deg);
+		void removeStudent(Student stu, std::string deg);
 };
-
-
-University::University(void){ 
-
-}
 
 
 //Getters
@@ -47,6 +44,17 @@ Degree &University::getDegree(int i){
 
 Student &University::getStudent(int i, int j){
 	return (degrees[i][j]);
+}
+
+std::vector<std::vector<int>> University::findStudentAll(Student stu){
+	std::vector<std::vector<int>> result;
+
+	//Go through all of the degrees
+	for(int i=0; i<getSize(); i++){
+		result.push_back(degrees[i].findStudent(stu));
+	}
+
+	return result;
 }
 
 
@@ -77,39 +85,20 @@ int University::getTotalNumStudents(void){
 
 
 void University::removeEmptyDegrees(void){
-	std::vector<Degree> temp;
-	
 	for(int i=0; i<getSize(); i++){
-		if(degrees[i].getSize() != 0){
-			temp.push_back(degrees[i]);
+		if(degrees[i].empty()){
+			degrees.erase(degrees.begin() + i);
 		}
-	}
-	
-	if(!(temp.size() == degrees.size())){
-		degrees.swap(temp);
-		temp.clear();
 	}
 }
 
 
 void University::modifyStudent(Student temp){
-	std::cout << "Uni size " << getSize() << '\n';	
-
 	for(int i=0; i<getSize(); i++){
 		for(int j=0; j<degrees[i].getSize(); j++){
-			std::cout << "Degree size " << degrees[i].getSize();
 			//Look everywhere and change each occurence of this student
 			if(temp == getStudent(i, j)){
-				std::cout << "Before :\n";
-				std::cout << getStudent(i, j).getName() << '\n';
-				std::cout << temp.getName() << '\n';
-
 				getStudent(i, j).setName(temp.getName());
-				std::cout << "After :\n";
-				std::cout << getStudent(i, j).getName() << '\n';
-				std::cout << temp.getName() << "\n\n";
-
-
 			}
 		}
 	}
@@ -139,5 +128,15 @@ void University::addStudent(Student stu, Degree deg){
 	degrees[getSize()-1].addStudent(stu);
 }
 
+
+void University::removeStudent(Student stu, std::string temp){
+	Degree deg(temp);
+
+	for(int i=0; i<getSize(); i++){
+		if(deg == degrees[i]){
+			degrees[i].removeStudent(stu);
+		}
+	}	
+}
 
 #endif
