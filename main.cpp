@@ -3,6 +3,8 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <limits>
+#include <cstdio>
 
 //My files
 #include "./student.hpp"

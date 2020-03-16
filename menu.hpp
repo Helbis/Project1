@@ -138,11 +138,19 @@ void Menu::addModify(void){
 	std::cout << "Add or Modify chosen\n\n";
 	
 	std::cout << "Student's name : "; 
-		std::cin >> temp_name;
+		std::cin.ignore(200, '\n');
+		//getchar();
+		getline(std::cin, temp_name);
 	std::cout << "Student's DNI : "; 
-		std::cin >> temp_DNI;
+		//std::cin.ignore(200, '\n');
+		//getchar();
+		getline(std::cin, temp_DNI);
 	std::cout << "Degree : "; 
-		std::cin >> temp_degree;
+		//std::cin.ignore(200, '\n');
+		//getchar();
+		getline(std::cin, temp_degree);
+
+	std::cout << temp_name << temp_DNI << temp_degree;
 	
 	Student temp(temp_name, temp_DNI);
 	bool found = find(temp);

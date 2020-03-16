@@ -172,23 +172,23 @@ void University::removeAll(void){
 
 void University::load(void){
 	std::ifstream fs;
+	std::string line, temp_name, temp_DNI, deg_name, record;
 	fs.open(FNAME);
-	std::string line;
 
 	removeAll();
-	/*
-		DDegree(name)\n
-		SStudent(name, dni)\n
-		.
-		.
-		.
-		Other Degree...	
-	*/
 	
 	if(fs.is_open() and !fs.eof()){
     	while(getline(fs, line)){
-
-			std::cout << "line[last] :\t" << line.back() << '\n';
+			std::istringstream ss(line);
+			getline(ss, deg_name, ';');
+			degrees.push_back(Degree(deg_name));
+		
+			while(getline(ss, record, ';')){
+				std::istringstream ss2(record);
+				getline(ss2, temp_name, ',');
+				getline(ss2, temp_DNI, ',');
+				degrees.back().addStudent(temp_name, temp_DNI);
+			}/*
 			switch(line[0]){
 				case 'D':{
 					//New degree
@@ -205,8 +205,8 @@ void University::load(void){
 					do{
 						//Read word by word
 						std::string temp_name, temp_DNI;
-						ss >> temp_name;
-						ss >> temp_DNI;
+						getline(ss, temp_name, ',');
+						getline(ss, temp_DNI, ',');
 	
 						degrees.back().addStudent(temp_name, temp_DNI);	
 					}while(ss);	
@@ -219,7 +219,7 @@ void University::load(void){
 					break;
 				}
 			}
-		}
+*/		}
   	}else{
 		std::cout << "Unable to open file";
 	}
@@ -235,11 +235,11 @@ void University::save(void){
 		//Writing to the file
 			for(int i=0; i<getSize(); i++){	
 				//Write Degree
-				fs << "D" + degrees[i].getName() + "\n";	
+				fs << degrees[i].getName() + ";";	
 
 				for(int j=0; j<degrees[i].getSize(); j++){
 					//Write students from degree
-					fs << "S" + degrees[i][j].getName() + " " + degrees[i][j].getDNI() + "\n";	
+					fs << degrees[i][j].getName() + "," + degrees[i][j].getDNI() + ';';
 				}
 			}
 	}else{

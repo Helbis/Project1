@@ -1,5 +1,1 @@
-DTCS
-SKolo 1
-SPOLO 2
-DCS
-SDOlo 13
+TCS;Filip Helbig,1;Piotr Sikorski,2;Weronika Kołodziej,3;Seba Kto,29;CS;Grzegorz Skowronski,18;BIO;Paula Janiak,200;
